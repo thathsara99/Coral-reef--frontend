@@ -1,3 +1,8 @@
+<?php
+  include('session.php');
+  require 'database_connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -186,35 +191,36 @@
               <h5 class="card-title">Add News</h5>
 
               <!-- General Form Elements -->
-              <form>
+              <form action="addNews.php" method="post" enctype="multipart/form-data">
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Title</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="title">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px"></textarea>
+                    <textarea class="form-control" style="height: 100px" name="description"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file" id="formFile" name="news_image">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
                   <div class="col-sm-10">
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" name="date">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
                   <div class="col-sm-10">
-                    <input type="time" class="form-control">
+                    <input type="time" class="form-control" name="time"> 
+                    <input type="text" class="form-control" name="type" hidden value="News"> 
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -358,45 +364,46 @@
           <h5 class="card-title">Add why Coral Reef</h5>
 
           <!-- General Form Elements -->
-          <form>
-            <div class="row mb-3">
-              <label for="inputText" class="col-sm-2 col-form-label">Title</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
-              <div class="col-sm-10">
-                <textarea class="form-control" style="height: 100px"></textarea>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
-              <div class="col-sm-10">
-                <input class="form-control" type="file" id="formFile">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-              <div class="col-sm-10">
-                <input type="date" class="form-control">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-              <div class="col-sm-10">
-                <input type="time" class="form-control">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Submit Button</label>
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Submit Form</button>
-              </div>
-            </div>
+          <form action="addNews.php" method="post" enctype="multipart/form-data">
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" style="height: 100px" name="description"></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile" name="news_image">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control" name="date">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                  <div class="col-sm-10">
+                    <input type="time" class="form-control" name="time"> 
+                    <input type="text" class="form-control" name="type" hidden value="Coral"> 
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Submit Button</label>
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                  </div>
+                </div>
 
-          </form><!-- End General Form Elements -->
+              </form><!-- End General Form Elements -->
 
         </div>
       </div>

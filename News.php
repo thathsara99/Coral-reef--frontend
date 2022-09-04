@@ -1,3 +1,8 @@
+<?php
+    include('session.php');
+    require 'database_connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -143,19 +148,21 @@
               </div>
 
               <div class="row gy-4">
-                <div
-                  class="col-lg-4 col-md-6"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
+              <?php
+                  $query="select * from news where type='news';";
+                  $result=mysqli_query($conn,$query);
+                  
+                  while($row=mysqli_fetch_assoc($result)){
+              ?>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                   <div class="card">
                     <div class="card-img">
                       <img
-                        src="assets/img/Article/3.jpg"
+                        src="<?php echo $row['img'];?>"
                         alt=""
                         class="img-fluid"
                       />
-                      <span class="post-date">2022/08/12</span>
+                      <span class="post-date"><?php echo $row['date'];?></span>
                     </div>
                     <h3>
                       <a href="service-details.php" class="stretched-link"
@@ -165,177 +172,20 @@
                     <div class="meta d-flex align-items-center">
                       <div class="d-flex align-items-center">
                         <i class="bi bi-person"></i>
-                        <span class="ps-2">Julia Parker</span>
+                        <span class="ps-2"><?php echo $row['admin_email'];?></span>
                       </div>
                       <span class="px-3 text-black-50">/</span>
                       <div class="d-flex align-items-center">
                         <i class="bi bi-folder2"></i>
-                        <span class="ps-2">Politics</span>
+                        <span class="ps-2"><?php echo $row['title'];?></span>
                       </div>
                     </div>
                     <p>
-                      Cumque eos in qui numquam. Aut aspernatur perferendis sed
-                      atque quia voluptas quisquam repellendus temporibus
-                      itaqueofficiis odit
+                    <?php echo $row['description'];?>
                     </p>
                   </div>
                 </div>
-                <!-- End Card Item -->
-
-                <div
-                  class="col-lg-4 col-md-6"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                >
-                  <div class="card">
-                    <div class="card-img">
-                      <img
-                        src="assets/img/Article/1.jpg"
-                        alt=""
-                        class="img-fluid"
-                      />
-                      <span class="post-date">December 12</span>
-                    </div>
-                    <h3>
-                      <a href="service-details.php" class="stretched-link"
-                        >Logistics</a
-                      >
-                    </h3>
-                    <div class="meta d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-person"></i>
-                        <span class="ps-2">Julia Parker</span>
-                      </div>
-                      <span class="px-3 text-black-50">/</span>
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-folder2"></i>
-                        <span class="ps-2">Politics</span>
-                      </div>
-                    </div>
-                    <p>
-                      Asperiores provident dolor accusamus pariatur dolore nam
-                      id audantium ut et iure incidunt molestiae dolor ipsam
-                      ducimus occaecati nisi
-                    </p>
-                  </div>
-                </div>
-                <!-- End Card Item -->
-
-                <div
-                  class="col-lg-4 col-md-6"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                >
-                  <div class="card">
-                    <div class="card-img">
-                      <img
-                        src="assets/img/Article/5.jpg"
-                        alt=""
-                        class="img-fluid"
-                      />
-                      <span class="post-date">December 12</span>
-                    </div>
-                    <h3>
-                      <a href="service-details.php" class="stretched-link"
-                        >Cargo</a
-                      >
-                    </h3>
-                    <div class="meta d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-person"></i>
-                        <span class="ps-2">Julia Parker</span>
-                      </div>
-                      <span class="px-3 text-black-50">/</span>
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-folder2"></i>
-                        <span class="ps-2">Politics</span>
-                      </div>
-                    </div>
-                    <p>
-                      Dicta quam similique quia architecto eos nisi aut ratione
-                      aut ipsum reiciendis sit doloremque oluptatem aut et
-                      molestiae ut et nihil
-                    </p>
-                  </div>
-                </div>
-                <!-- End Card Item -->
-
-                <div
-                  class="col-lg-4 col-md-6"
-                  data-aos="fade-up"
-                  data-aos-delay="400"
-                >
-                  <div class="card">
-                    <div class="card-img">
-                      <img
-                        src="assets/img/trucking-service.jpg"
-                        alt=""
-                        class="img-fluid"
-                      />
-                      <span class="post-date">December 12</span>
-                    </div>
-                    <h3>
-                      <a href="service-details.php" class="stretched-link"
-                        >Trucking</a
-                      >
-                    </h3>
-                    <div class="meta d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-person"></i>
-                        <span class="ps-2">Julia Parker</span>
-                      </div>
-                      <span class="px-3 text-black-50">/</span>
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-folder2"></i>
-                        <span class="ps-2">Politics</span>
-                      </div>
-                    </div>
-                    <p>
-                      Dicta quam similique quia architecto eos nisi aut ratione
-                      aut ipsum reiciendis sit doloremque oluptatem aut et
-                      molestiae ut et nihil
-                    </p>
-                  </div>
-                </div>
-                <!-- End Card Item -->
-
-                <div
-                  class="col-lg-4 col-md-6"
-                  data-aos="fade-up"
-                  data-aos-delay="500"
-                >
-                  <div class="card">
-                    <div class="card-img">
-                      <img
-                        src="assets/img/packaging-service.jpg"
-                        alt=""
-                        class="img-fluid"
-                      />
-                      <span class="post-date">December 12</span>
-                    </div>
-                    <h3>
-                      <a href="service-details.php" class="stretched-link"
-                        >Packaging</a
-                      >
-                    </h3>
-                    <div class="meta d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-person"></i>
-                        <span class="ps-2">Julia Parker</span>
-                      </div>
-                      <span class="px-3 text-black-50">/</span>
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-folder2"></i>
-                        <span class="ps-2">Politics</span>
-                      </div>
-                    </div>
-                    <p>
-                      Illo consequuntur quisquam delectus praesentium modi
-                      dignissimos facere vel cum onsequuntur maiores beatae
-                      consequatur magni voluptates
-                    </p>
-                  </div>
-                </div>
+                <?php }?>
                 <!-- End Card Item -->
               </div>
             </div>
