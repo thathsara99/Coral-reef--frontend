@@ -3,7 +3,7 @@
 
     class CrudOperation{
         function test_input($data) {
-            $data = trim($data1);
+            $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
             return $data;
