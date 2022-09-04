@@ -183,7 +183,7 @@
                       <span class="px-3 text-black-50">/</span>
                       <div class="d-flex align-items-center">
                         <i class="bi bi-folder2"></i>
-                        <span class="ps-2"><?php echo $row['title'];?></span>
+                        <span class="ps-2"><?php echo $row['time'];?></span>
                       </div>
                     </div>
                     <p>
