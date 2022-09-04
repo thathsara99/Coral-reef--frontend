@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 04, 2022 at 12:31 PM
+-- Generation Time: Sep 04, 2022 at 12:45 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `contact_no` varchar(20) NOT NULL,
   `password` text NOT NULL,
   `role` varchar(50) NOT NULL DEFAULT 'user',
-  `profile_pic` text NOT NULL,
+  `profile_pic` text DEFAULT NULL,
   PRIMARY KEY (`user_id`,`email`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 COMMIT;

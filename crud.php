@@ -16,8 +16,10 @@
             if($conn->query($sql)===true){
                 return "success";
             }
-            else
-                return "fail";
+            else{
+               echo mysqli_error($conn);
+            }
+
         }
 
         function add_admin($name,$email,$password){
