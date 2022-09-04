@@ -17,7 +17,7 @@
                 return "success";
             }
             else{
-               echo mysqli_error($conn);
+               return 'fail';
             }
 
         }
