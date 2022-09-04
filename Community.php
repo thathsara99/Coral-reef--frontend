@@ -169,10 +169,26 @@
                     alt="Profile"
                     class="rounded-circle"
                   />
-                  <span>Sample Name</span>
+                  <?php
+                    $conn1=new mysqli("localhost:3306","root","","coralbarrer");
+                    $query1="select * from users where email='".$row['user_email']."';";
+                    $result1=mysqli_query($conn1,$query1);
+                    if($result1){
+                      $row1=mysqli_fetch_assoc($result1);
+                    }
+                    else{
+                      echo mysqli_error($conn1);
+                    }
+                    
+                  ?>
+                  <span><?php echo $row1['name'];?></span>
+                  <?php 
+                    if($row1['email']==$_SESSION['logged_email']){
+                  ?>
                   <div class="btn-text-right">
                     <button type="button" class="btn">delete</button>
                   </div>
+                  <?php }?>
                 </div>
                 <hr size="5" width="100%" />
                 <p><?php echo $row['post']; ?></p>
@@ -180,23 +196,36 @@
                   <img src="<?php echo $row['post_img']; ?>" alt="Image" />
                 </div>
                 <div class="card2">
+                  
                   <div class="input-group">
-                    <input
-                      type="text"
-                      placeholder="write a comment"
-                      style="width: 90%"
-                    />
-                    <button type="button" class="btn btn-primary">
-                      Comment
-                    </button>
+                    <form method="post" action="addComment.php">
+                      <input
+                        type="text"
+                        placeholder="write a comment"
+                        style="width: 90%"
+                        name="comment"
+                      />
+                      <input type="text" value="<?php echo $row['post_id'];?>" hidden name="post_id">
+                      <button type="submit" class="btn btn-primary">
+                        Comment
+                      </button>
+                    </form>
+                    <?php
+                      $conn1=new mysqli("localhost:3306","root","","coralbarrer");
+                      $query1="select * from comment where post_id=".$row['post_id'].";";
+                      $result1=mysqli_query($conn1,$query1);
+                     
+                      while($row1=mysqli_fetch_assoc($result1)){
+                  ?>
                     <div class="nav-profile d-flex align-items-center">
                       <img
                         src="assets/img/logo.png"
                         alt="Profile"
                         class="rounded-circle"
                       />
-                      <p>Hii! I can help you with that.</p>
+                      <p><?php echo $row1['msg'];?></p>
                     </div>
+                    <?php }?>
                   </div>
                 </div>
               </div>
