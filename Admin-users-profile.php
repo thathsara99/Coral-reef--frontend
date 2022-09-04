@@ -8,9 +8,26 @@
     $name=$_POST['name'];
     $email=$_POST['email'];
     $id=$_SESSION['logged_id'];
+
+
+    $target_dir = "assets/img/Profile_pic/";
+    $x=0;
+    $target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
+    if(!empty($target_file)){
+        if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"],$target_file)) {
+            $x=1;
+        }
+        
+    }
     
     $obj=new CrudOperation();
-    $update_status=$obj->edit_admin($id,$name,$email);
+    if($x==1){
+      $update_status=$obj->edit_admin($id,$name,$email,$target_file);
+    }
+    else{
+      $update_status=$obj->edit_admin($id,$name,$email,"");
+    }
+    
   }
 
   if(isset($_POST['change'])){
@@ -215,8 +232,8 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="assets/img/Article/1.jpg" alt="Profile" class="rounded-circle">
-              <h2>Sample Name</h2>
+              <img src="<?php echo $logged_user['profile_pic'];?>" alt="Profile" class="rounded-circle">
+              <h2><?php echo $logged_user['name'];?></h2>
               <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -285,9 +302,9 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/Article/1.jpg" alt="Profile">
+                        <img src="<?php echo $logged_user['profile_pic'];?>" alt="Profile">
                         <div class="pt-2">
-                          <input type="file" class="btn btn-primary btn-sm" title="Upload new profile image" name="profile_img"><i class="bi bi-upload"></i></a>
+                          <input type="file" class="btn btn-primary btn-sm" title="Upload new profile image" name="profile_pic"><i class="bi bi-upload"></i></a>
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>

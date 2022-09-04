@@ -89,11 +89,17 @@
             }
         }
 
-        function edit_admin($id,$name,$email){
+        function edit_admin($id,$name,$email,$img){
             global $conn;
 
-            $sql="update admins set name='".$name."',email='".$email."' where admin_id='".$id."'";
-
+            $sql="";
+            if($img==""){
+                $sql="update admins set name='".$name."',email='".$email."' where admin_id='".$id."'";
+            }
+            else{
+                $sql="update admins set name='".$name."',email='".$email."',profile_pic='".$img."' where admin_id='".$id."'";
+            }
+            
             if($conn->query($sql)===true){
                 return "success";
             }
