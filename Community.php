@@ -80,7 +80,13 @@
               ></a>
               <ul>
         
+              <?php 
+                  if($_SESSION['role']=='admin'){
+                ?>
+              <li><a href="Admin-users-profile.php">Profile</a></li>
+              <?php } else { ?>
                 <li><a href="User Profile.php">Profile</a></li>
+                <?php } ?>
                 <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
@@ -170,7 +176,7 @@
                     class="rounded-circle"
                   />
                   <?php
-                    $conn1=new mysqli("localhost:3306","root","","coralbarrer");
+                    $conn1=new mysqli("localhost:3308","root","","coralbarrer");
                     $query1="select * from users where email='".$row['user_email']."';";
                     $result1=mysqli_query($conn1,$query1);
                     if($result1){
@@ -213,12 +219,12 @@
                       </button>
                     </form>
                     <?php
-                      $conn1=new mysqli("localhost:3306","root","","coralbarrer");
+                      $conn1=new mysqli("localhost:3308","root","","coralbarrer");
                       $query1="select * from comment where post_id=".$row['post_id'].";";
                       $result1=mysqli_query($conn1,$query1);
                      
                       while($row1=mysqli_fetch_assoc($result1)){
-                        $conn2=new mysqli("localhost:3306","root","","coralbarrer");
+                        $conn2=new mysqli("localhost:3308","root","","coralbarrer");
                         $query2="select * from USERS where email ='".$row1['user_email']."';";
                         $result2=mysqli_query($conn2,$query2);
                         $row2=mysqli_fetch_assoc($result2);

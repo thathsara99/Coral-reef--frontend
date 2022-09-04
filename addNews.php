@@ -8,7 +8,7 @@
     $time=$_POST['time'];
     $title=$_POST['title'];
     $type=$_POST['type'];
-    $email=$_SESSION['logged_in'];
+    $email=$_SESSION['logged_email'];
 
 
     $target_dir = "assets/img/News/";
