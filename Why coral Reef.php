@@ -1,3 +1,7 @@
+<?php
+    include('session.php');
+    require 'database_connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,88 +108,23 @@
       <div class="container">
 
         <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
-
+        <?php
+              $query="select * from news where type='Coral';";
+              $result=mysqli_query($conn,$query);
+              
+              while($row=mysqli_fetch_assoc($result)){
+          ?>
           <div class="col-md-5">
-            <img src="assets/img/WHY/5.jpg" class="img-fluid" alt="">
+            <img src="<?php echo $row['post_img']?>" class="img-fluid" alt="">
           </div>
+          
           <div class="col-md-7">
-            <h3>COASTAL PROTECTION</h3>
+            <h3><?php echo $row['title'];?></h3>
             <p class="fst-italic" style="text-align: justify;">
-              Reefs occupy only a tiny part of the seabed: less than 0.2%. Yet they are found along more than 150,000 kilometers of coastline in more than 100 countries and territories.
-              Due to their massive formation between the surface and the first few dozen meters of depth, coral reefs form a barrier that absorbs the elements coming from the open sea in a very efficient way.
-              <br>
-              They absorb wave energy and contribute to the reduction of coastal erosion. They reduce damage in the event of storms, 
-              hurricanes and other cyclones, as well as, to some extent, the energy of tsunamis. In doing so, they protect both the 
-              ecosystems between the reefs and the coasts, such as lagoons with sea grass beds, as well as human settlements along the 
-              coast.
-            </p>
-            <ul>
-              <li><i class="bi bi-check"></i> Their action is so effective that man imitates it by immersing concrete structures.</li>
-              <li><i class="bi bi-check"></i> Reefs occupy only a tiny part of the seabed: less than 0.2%.</li>
-              <li><i class="bi bi-check"></i> Without this protective role, some countries located in atolls would no longer exist.</li>
-            </ul>
-          </div>
-        </div><!-- Features Item -->
-
-        <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
-          <div class="col-md-5 order-1 order-md-2">
-            <img src="assets/img/WHY/2.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7 order-2 order-md-1">
-            <h3>A TOURIST ATTRACTION</h3>
-            <p class="fst-italic" style="text-align: justify;">
-              Reefs are often the backbone of tropical regions’ economies, where they are generally located.<br><br>
-            
-            
-              They attract divers, freedivers, recreational fishermen and lovers of white sandy beaches. More than 100 countries 
-              benefit from reef-related tourism and it contributes to more than 30% of export earnings in more than 20 countries.<br><br>
-            
-            
-              Local economies benefit from billions of dollars, from visitors that come to admire their reefs to companies exploiting reef ecosystems. In many small islands, 
-              more than 90% of new economic development depends on this coastal tourism.Reef tourism, if managed in a sustainable manner, i.e. respectful of reefs by limiting the 
-              destruction and pollution induced by this same tourism, especially when it comes to mass tourism, can provide alternative or complementary income resources for coastal communities in developing countries.
-            
-          </p>
-          </div>
-        </div><!-- Features Item -->
-
-        <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
-          <div class="col-md-5">
-            <img src="assets/img/WHY/3.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7">
-            <h3>A MEDICAL FUTURE</h3>
-            <p class="fst-italic" style="text-align: justify;">
-              Deprived to a very large extent of any possibility of movement, corals have developed an arsenal 
-              of very effective chemical weapons to defend themselves and fight in the conquest of reef space.
-              <br><br>
-              Coral organisms are of great interest in the search for treatments for certain cancers or the aging of cells. Moreover, due to its nature that is very
-               similar to our bones, the coral’s skeleton, used since 1970 for bone grafts, is a promising lead for bone regeneration.
-               <br><br>
-               Since only an infinitesimal portion of reef organisms have been sampled, 
-               analyzed and tested, the potential for new pharmaceutical discoveries is enormous.
+            <?php echo $row['description'];?>
             </p>
           </div>
-        </div><!-- Features Item -->
-
-        <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
-          <div class="col-md-5 order-1 order-md-2">
-            <img src="assets/img/WHY/4.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7 order-2 order-md-1">
-            <h3>A FOOD RESOURCE</h3>
-            <p class="fst-italic" style="text-align: justify;">
-              More than 500 million people (including 40 million fishermen), i.e. almost 8% of the world’s population, depend on coral reefs directly in terms of coastal protection, 
-              fisheries resources and tourism.<br><br>
-              A large proportion of these human populations live in developing countries and island nations and therefore depend to a large extent on food taken directly from reef waters and 
-              thus depend on the direct and indirect means of subsistence they can derive from them.<br>
-              Reef animals are an important source of protein. Coral reefs provide about 10% of the fish caught worldwide. But this figure rises to 20-25% 
-              in developing countries, and 70-90% in Southeast Asian countries.
-            </p>
-            <p>
-              “Well-managed” reefs can yield between 5 and 15 tons of fish, crustaceans, molluscs and other invertebrates per square kilometer.
-            </p>
-          </div>
+          <?php }?>
         </div><!-- Features Item -->
 
       </div>

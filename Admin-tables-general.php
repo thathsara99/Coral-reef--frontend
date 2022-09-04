@@ -1,3 +1,7 @@
+<?php
+    include('session.php');
+    require 'database_connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -74,17 +78,22 @@
                 ><span>Account</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
-              <li><a href="Admin-users-profile.php">Profile</a></li>
-            <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-              <ul>
-                <li><a href="#">Deep Drop Down 1</a></li>
-                <li><a href="#">Deep Drop Down 2</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-                <li><a href="#">Deep Drop Down 5</a></li>
-              </ul>
-            </li> -->
-            <li><a href="Logout.php">Logout</a></li>
+              <?php
+                if(isset($_SESSION['logged_email'])){
+              ?>
+              <?php 
+                  if($_SESSION['role']=='admin'){
+                ?>
+                <li><a href="Admin-users-profile.php">Profile</a></li>
+                <li><a href="Logout.php">Logout</a></li>
+              <?php } else { ?>
+                <li><a href="User Profile.php">Profile</a></li>
+                <li><a href="Logout.php">Logout</a></li>
+                <?php } ?>
+              <?php } else{ ?>
+              <li><a href="Register.php">Register</a></li>
+              <li><a href="Login.php">Login</a></li>
+              <?php } ?>
                 <!-- <li><a href="#">Drop Down 3</a></li>
             <li><a href="#">Drop Down 4</a></li> -->
               </ul>
@@ -233,28 +242,37 @@
                 <!-- Default Table -->
                 <table class="table">
                   <thead>
+                  
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">News Title</th>
-                      <th scope="col">News description</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Description</th>
                       <th scope="col">Image</th>
-                      <th scope="col">Date</th>
+                      <th scope="col"></th>
                       <th scope="col">Action</th>
                     </tr>
+                    
                   </thead>
                   <tbody>
+                  <?php
+                    $query="select * from news where type='news';";
+                    $result=mysqli_query($conn,$query);
+                    
+                    while($row=mysqli_fetch_assoc($result)){
+                  ?>
                     <tr>
                       <th scope="row">1</th>
-                      <td>Sample</td>
-                      <td>Sample</td>
+                      <td><?php echo $row['title'];?></td>
+                      <td><?php echo $row['description'];?></td>
                       <td>
                         <img
                           class="admin-project-image"
-                          src="assets/img/news-1.jpg"
+                          src="<?php echo $row['img'];?>"
                         />
                       </td>
-                      <td>2016-05-25</td>
+                      <td><?php echo $row['date'];?></td>
                       <td>
+                      <a href="deleteNews.php?id=<?php echo $row['news_id'];?>">
                         <button
                           class="btn btn-danger"
                           style="margin-left: 5px"
@@ -264,9 +282,10 @@
                             class="glyphicon glyphicon-remove"
                             style="font-size: 15px"
                           ></i>
-                        </button>
+                        </button></a>
                       </td>
                     </tr>
+                    <?php }?>
                   </tbody>
                 </table>
                 <!-- End Default Table Example -->
@@ -289,17 +308,25 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                    $query="select * from news where type='Coral';";
+                    $result=mysqli_query($conn,$query);
+                    
+                    while($row=mysqli_fetch_assoc($result)){
+                  ?>
                     <tr>
                       <th scope="row">1</th>
-                      <td>Sample</td>
-                      <td>Sample</td>
+                      <td><?php echo $row['title'];?></td>
+                      <td><?php echo $row['description'];?></td>
                       <td>
                         <img
                           class="admin-project-image"
-                          src="assets/img/news-1.jpg"
+                          src="<?php echo $row['img'];?>"
                         />
                       </td>
+                      <td><?php echo $row['date'];?></td>
                       <td>
+                        <a href="deleteNews.php?id=<?php echo $row['news_id'];?>">
                         <button
                           class="btn btn-danger"
                           style="margin-left: 5px"
@@ -309,9 +336,10 @@
                             class="glyphicon glyphicon-remove"
                             style="font-size: 15px"
                           ></i>
-                        </button>
+                        </button></a>
                       </td>
                     </tr>
+                    <?php }?>
                   </tbody>
                 </table>
                 <!-- End Table with hoverable rows -->
@@ -338,19 +366,27 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                      $query="select * from users;";
+                      $result=mysqli_query($conn,$query);
+                      
+                      while($row=mysqli_fetch_assoc($result)){
+                    ?>
                     <tr>
+                    
                       <th scope="row">1</th>
-                      <td>Sample</td>
-                      <td>Sample</td>
-                      <th scope="col">Contact Number</th>
-                      <th scope="col">Role</th>
+                      <td><?php echo $row['name'];?></td>
+                      <td><?php echo $row['email'];?></td>
+                      <th scope="col"><?php echo $row['contact_no'];?></th>
+                      <th scope="col"><?php echo $row['role'];?></th>
                       <td>
                         <img
                           class="admin-project-image"
-                          src="assets/img/news-1.jpg"
+                          src="<?php echo $row['profile_pic'];?>"
                         />
                       </td>
                       <td>
+                      <a href="deleteUser.php?id=<?php echo $row['user_id'];?>">
                         <button
                           class="btn btn-danger"
                           style="margin-left: 5px"
@@ -360,9 +396,44 @@
                             class="glyphicon glyphicon-remove"
                             style="font-size: 15px"
                           ></i>
-                        </button>
+                        </button></a>
                       </td>
                     </tr>
+                    <?php } ?>
+                    <?php
+                      $query="select * from admins;";
+                      $result=mysqli_query($conn,$query);
+                      
+                      while($row=mysqli_fetch_assoc($result)){
+                    ?>
+                    <tr>
+                    
+                      <th scope="row">1</th>
+                      <td><?php echo $row['name'];?></td>
+                      <td><?php echo $row['email'];?></td>
+                      <th scope="col"></th>
+                      <th scope="col"><?php echo $row['role'];?></th>
+                      <td>
+                        <img
+                          class="admin-project-image"
+                          src="<?php echo $row['profile_pic'];?>"
+                        />
+                      </td>
+                      <td>
+                        <a href="deleteAdmin.php?id=<?php echo $row['admin_id'];?>">
+                        <button
+                          class="btn btn-danger"
+                          style="margin-left: 5px"
+                          type="submit"
+                        >
+                          <i
+                            class="glyphicon glyphicon-remove"
+                            style="font-size: 15px"
+                          ></i>
+                        </button></a>
+                      </td>
+                    </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
                 <!-- End Table with hoverable rows -->
@@ -386,18 +457,36 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                      $query="select * from post;";
+                      $result=mysqli_query($conn,$query);
+                      
+                      while($row=mysqli_fetch_assoc($result)){
+                    ?>
                     <tr>
+                    <?php
+                      $conn1=new mysqli("localhost:3308","root","","coralbarrer");
+                      $query1="select * from users where email='".$row['user_email']."';";
+                      $result1=mysqli_query($conn1,$query1);
+                      if($result1){
+                        $row1=mysqli_fetch_assoc($result1);
+                      }
+                      else{
+                        echo mysqli_error($conn1);
+                      }
+                    ?>
                       <th scope="row">1</th>
-                      <td>Sample</td>
-                      <td>Sample</td>
-                      <th scope="col">description</th>
+                      <td><?php echo $row1['name']?></td>
+                      <td><?php echo $row1['email']?></td>
+                      <th scope="col"><?php echo $row['post']?></th>
                       <td>
                         <img
                           class="admin-project-image"
-                          src="assets/img/news-1.jpg"
+                          src="<?php echo $row['post_img']?>"
                         />
                       </td>
                       <td>
+                        <a href="deletePost1.php?id=<?php echo $row['post_id']?>">
                         <button
                           class="btn btn-danger"
                           style="margin-left: 5px"
@@ -407,9 +496,10 @@
                             class="glyphicon glyphicon-remove"
                             style="font-size: 15px"
                           ></i>
-                        </button>
+                        </button></a>
                       </td>
                     </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
                 <!-- End Table with hoverable rows -->

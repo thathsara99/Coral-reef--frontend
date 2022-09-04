@@ -8,6 +8,7 @@
   $passwordErr="";
   $cpasswordErr="";
   $create_status="";
+  $role="";
 
   if(isset($_POST['create'])){
     if(empty($_POST['name'])){
@@ -45,7 +46,14 @@
       $name=$obj->test_input($_POST['name']);
       $email=$obj->test_input($_POST['email']);
       $password=$obj->test_input($_POST['password']);
-      $create_status=$obj->add_admin($name,$email,$password);
+      $role=$obj->test_input($_POST['role']);
+      if($role=="admin"){
+        $create_status=$obj->add_admin($name,$email,$password);
+      }
+      else{
+        $create_status=$obj->add_user($name,$email,"","",$password);
+      }
+      
     }
     
   }
@@ -186,6 +194,18 @@
                         </div>
                         <div class="text-danger"><?php echo $cpasswordErr;?></div>
                       </div>
+
+                      <div class="col-12">
+                        <label for="yourCPassword" class="form-label"
+                          >Role</label
+                        >
+                        <select name="role">
+                          <option value="user">User</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                        <div class="text-danger"><?php echo $cpasswordErr;?></div>
+                      </div>
+
 
                       <div class="col-12">
                         <div class="form-check">

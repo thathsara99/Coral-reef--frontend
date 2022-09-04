@@ -104,17 +104,22 @@
         <li><a class="nav-link scrollto" href="Why coral Reef.php">Why Coral Reef</a></li>
         <li class="dropdown"><a href="#"><span>Account</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
-          <li><a href="Admin-users-profile.php">Profile</a></li>
-            <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-              <ul>
-                <li><a href="#">Deep Drop Down 1</a></li>
-                <li><a href="#">Deep Drop Down 2</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-                <li><a href="#">Deep Drop Down 5</a></li>
-              </ul>
-            </li> -->
-            <li><a href="Logout.php">Logout</a></li>
+          <?php
+                if(isset($_SESSION['logged_email'])){
+              ?>
+              <?php 
+                  if($_SESSION['role']=='admin'){
+                ?>
+                <li><a href="Admin-users-profile.php">Profile</a></li>
+                <li><a href="Logout.php">Logout</a></li>
+              <?php } else { ?>
+                <li><a href="User Profile.php">Profile</a></li>
+                <li><a href="Logout.php">Logout</a></li>
+                <?php } ?>
+              <?php } else{ ?>
+              <li><a href="Register.php">Register</a></li>
+              <li><a href="Login.php">Login</a></li>
+              <?php } ?>
             <!-- <li><a href="#">Drop Down 3</a></li>
             <li><a href="#">Drop Down 4</a></li> -->
           </ul>
