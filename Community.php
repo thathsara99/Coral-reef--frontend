@@ -141,7 +141,7 @@
         <div class="container">
           <div class="card mb-3">
             <div class="card-body">
-              <form action="#" method="post" role="form">
+              <form action="addPost.php" method="post" role="form" enctype="multipart/form-data">
                 <div class="post">
                   <div class="form-group mt-3">
                     <textarea
@@ -151,12 +151,8 @@
                       placeholder="Add new Post"
                       style="border: none"
                     ></textarea>
-                    <input
-                      type="file"
-                      class="btn btn-primary btn-sm"
-                      title="Upload new profile image"
-                    />
-                    <button type="button" class="btn btn-primary">Post</button>
+                    <input type="file" name="post_img" class="btn btn-primary btn-sm" title="Upload new profile image"/>
+                    <button type="submit" class="btn btn-primary">Post</button>
                   </div>
                 </div>
               </form>
