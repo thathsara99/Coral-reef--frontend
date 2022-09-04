@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 04, 2022 at 12:45 PM
+-- Generation Time: Sep 04, 2022 at 12:54 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -25,21 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `admins`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
-  `country` varchar(100) NOT NULL,
-  `contact_no` varchar(20) NOT NULL,
+  `role` varchar(50) NOT NULL DEFAULT 'admin',
   `password` text NOT NULL,
-  `role` varchar(50) NOT NULL DEFAULT 'user',
   `profile_pic` text DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`admin_id`,`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`admin_id`, `name`, `email`, `role`, `password`, `profile_pic`) VALUES
+(3, 'Admin', 'admin@gmail.com', 'admin', 'admin@123', ''),
+(4, 'admin2', 'admin2@gmail.com', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

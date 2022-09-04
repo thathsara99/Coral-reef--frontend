@@ -66,7 +66,7 @@
 
         function login($email,$password){
             global $conn;
-            $password=  md5($password);
+            // $password=  md5($password);
             
             $sql1="select * from users where email='".$email."' and password='".$password."'and role='user'" ;
             
