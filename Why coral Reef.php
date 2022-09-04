@@ -1,6 +1,6 @@
 <?php
-    include('session.php');
     require 'database_connect.php';
+    require 'session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,14 +106,16 @@
     <!-- ======= Features Section ======= -->
     <section id="features" class="features">
       <div class="container">
-
-        <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
-        <?php
+      <?php
+              $i=0;
               $query="select * from news where type='Coral';";
               $result=mysqli_query($conn,$query);
               
               while($row=mysqli_fetch_assoc($result)){
-          ?>
+                if($i%2==){
+      ?>
+        <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
+        
           <div class="col-md-5">
             <img src="<?php echo $row['img']?>" class="img-fluid" alt="">
           </div>
@@ -124,8 +126,21 @@
             <?php echo $row['description'];?>
             </p>
           </div>
-          <?php }?>
-        </div><!-- Features Item -->
+          
+        </div>
+        <?php } else {?>
+        <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="<?php echo $row['img']?>" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-7 order-2 order-md-1">
+            <h3><?php echo $row['title'];?></h3>
+            <p class="fst-italic" style="text-align: justify;">
+            <?php echo $row['description'];?>
+          </p>
+          </div>
+        </div>
+        <?php } $i=$i+1;}?>
 
       </div>
     </section><!-- End Features Section -->
