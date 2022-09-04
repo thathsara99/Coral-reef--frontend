@@ -1,5 +1,53 @@
 <?php
   include('session.php');
+  include ('crud.php');
+
+  $update_status="";
+  $password_change_status="";
+
+  if(isset($_POST['update'])){
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    $country=$_POST['country'];
+    $contact_no=$_POST['contact_no'];
+    $id=$_SESSION['logged_id'];
+
+
+    $target_dir = "assets/img/Profile_pic/";
+    $x=0;
+    $target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
+    if(!empty($target_file)){
+        if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"],$target_file)) {
+            $x=1;
+        }
+        
+    }
+    
+    $obj=new CrudOperation();
+    if($x==1){
+      $update_status=$obj->edit_user($id,$name,$email,$country,$contact_no,$target_file);
+    }
+    else{
+      $update_status=$obj->edit_user($id,$name,$country,$contact_no,$email,"");
+    }
+    
+  }
+
+  if(isset($_POST['change'])){
+    if($_POST['newpassword']!=$_POST['renewpassword']){
+      $password_change_status="Password change fail";
+    }
+    else{
+      $obj1=new CrudOperation();
+      $id=$_SESSION['logged_id'];
+      $password=$_POST['password'];
+      $newpassword=$_POST['newpassword'];
+      $password_change_status=$obj1->user_password_change($id,$password,$newpassword);
+    }
+  }
+
+  $a=new CrudOperation();
+  $logged_user=$a->login_user_details($_SESSION['logged_id'],$_SESSION['role']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,8 +159,8 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="assets/img/Article/1.jpg" alt="Profile" class="rounded-circle">
-              <h2>Sample Name</h2>
+              <img src="<?php echo $logged_user['profile_pic']?>" alt="Profile" class="rounded-circle">
+              <h2><?php echo $logged_user['name']?></h2>
               <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -156,22 +204,22 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">Sample Name</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $logged_user['name']?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">example@gmail.com</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $logged_user['email']?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Country</div>
-                    <div class="col-lg-9 col-md-8">Sri Lanka</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $logged_user['country']?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $logged_user['contact_no']?></div>
                   </div>
 
                 </div>
@@ -179,13 +227,13 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form method="post" enctype="multipart/form-data">
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/Article/1.jpg" alt="Profile">
+                        <img src="<?php echo $logged_user['profile_pic'];?>" alt="Profile">
                         <div class="pt-2">
-                          <input type="file" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <input type="file" class="btn btn-primary btn-sm" title="Upload new profile image" name="profile_pic"><i class="bi bi-upload"></i></a>
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>
@@ -194,34 +242,41 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="Budara Malkini">
+                        <input name="name" type="text" class="form-control" id="fullName" value="<?php echo $logged_user['name']?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="company" type="text" class="form-control" id="company" value="example@gmail.com">
+                        <input name="email" type="email" class="form-control" id="company" value="<?php echo $logged_user['email']?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="country" type="text" class="form-control" id="Country" value="Srilanka">
+                        <input name="country" type="text" class="form-control" id="Country" value="<?php echo $logged_user['country']?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                        <input name="contact_no" type="text" class="form-control" id="Phone" value="<?php echo $logged_user['contact_no']?>">
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                      <button type="submit" class="btn btn-primary" name="update">Save Changes</button>
                     </div>
+                    <?php
+                      if($update_status=="fail"){
+                    ?>
+                    <div class="text-danger"><?php echo $update_status;?></div>
+                    <?php
+                      }
+                    ?>
                   </form><!-- End Profile Edit Form -->
 
                 </div>
@@ -270,32 +325,39 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
+                  <form method="post">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="password" type="password" class="form-control" id="currentPassword" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="newpassword" type="password" class="form-control" id="newPassword" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="renewpassword" type="password" class="form-control" id="renewPassword" required>
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                      <button type="submit" class="btn btn-primary" name="change">Change Password</button>
                     </div>
+                    <?php
+                      if($password_change_status=="fail"){
+                    ?>
+                    <div class="text-danger"><?php echo $password_change_status;?></div>
+                    <?php
+                      }
+                    ?>
                   </form><!-- End Change Password Form -->
 
                 </div>

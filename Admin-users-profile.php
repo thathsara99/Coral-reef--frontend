@@ -4,6 +4,7 @@
 
   $update_status="";
   $password_change_status="";
+  
   if(isset($_POST['update'])){
     $name=$_POST['name'];
     $email=$_POST['email'];

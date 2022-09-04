@@ -40,6 +40,7 @@
         $_SESSION['role']=$login_user['role'];
         $_SESSION['name']=$login_user['name'];
         if($_SESSION['role']=="user"){
+          $_SESSION['logged_id']=$login_user['user_id'];
           header("Location: Community.php");
           exit();
         }

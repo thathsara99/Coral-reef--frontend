@@ -150,5 +150,48 @@
             }
 
         }
+
+        function edit_user($id,$name,$email,$country,$contact_no,$img){
+            global $conn;
+
+            $sql="";
+            if($img==""){
+                $sql="update users set name='".$name."',email='".$email."',country='".$country."',contact_no='".$contact_no."' where user_id='".$id."'";
+            }
+            else{
+                $sql="update users set name='".$name."',email='".$email."',country='".$country."',contact_no='".$contact_no."',profile_pic='".$img."' where user_id='".$id."'";
+            }
+            
+            if($conn->query($sql)===true){
+                return "success";
+            }
+            else{
+                return "fail";
+            }
+        }
+
+        function user_password_change($id,$password,$newpassword){
+            global $conn;
+            $password=  md5($password);
+            $newpassword=  md5($newpassword);
+            $sql="select * from users where user_id='".$id."' and password='".$password."'";
+
+            $result=$conn->query($sql);
+
+            if($result->num_rows>0){
+                $sql1="update users set password='".$newpassword."'where user_id='".$id."'";
+                if($conn->query($sql1)===true){
+                    return "success";
+                }
+                else{
+                    return "fail";
+                }
+            }
+            else{
+                return "fail";
+            }
+
+        }
+
     }
 ?>
