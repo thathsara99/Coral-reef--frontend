@@ -1,5 +1,6 @@
 <?php
   include('session.php');
+  require 'database_connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,6 +157,11 @@
                   </div>
                 </div>
               </form>
+              <?php
+                $query="select * from post;";
+                $result=mysqli_query($conn,$query);
+                while($row=mysqli_fetch_assoc($result)){
+              ?>
               <div class="comment">
                 <div class="nav-profile d-flex align-items-center">
                   <img
@@ -169,9 +175,9 @@
                   </div>
                 </div>
                 <hr size="5" width="100%" />
-                <p>Hii! Can you tell me where is this place?</p>
+                <p><?php echo $row['post']; ?></p>
                 <div class="postimg">
-                  <img src="assets/img/WHY/8.jpg" alt="Image" />
+                  <img src="<?php echo $row['post_img']; ?>" alt="Image" />
                 </div>
                 <div class="card2">
                   <div class="input-group">
@@ -194,6 +200,7 @@
                   </div>
                 </div>
               </div>
+              <?php }?>
             </div>
           </div>
         </div>
