@@ -115,7 +115,7 @@
               while($row=mysqli_fetch_assoc($result)){
           ?>
           <div class="col-md-5">
-            <img src="<?php echo $row['post_img']?>" class="img-fluid" alt="">
+            <img src="<?php echo $row['img']?>" class="img-fluid" alt="">
           </div>
           
           <div class="col-md-7">
