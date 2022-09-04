@@ -4,7 +4,7 @@
 
   $update_status="";
   $password_change_status="";
-  
+
   if(isset($_POST['update'])){
     $name=$_POST['name'];
     $email=$_POST['email'];
@@ -306,7 +306,7 @@
                         <img src="<?php echo $logged_user['profile_pic'];?>" alt="Profile">
                         <div class="pt-2">
                           <input type="file" class="btn btn-primary btn-sm" title="Upload new profile image" name="profile_pic"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          <a href="profile_pic_delete.php?id=<?php echo $logged_user['admin_id']?>&role=<?php echo $logged_user['role']?>" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>
                     </div>
