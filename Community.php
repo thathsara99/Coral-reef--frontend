@@ -183,10 +183,12 @@
                   ?>
                   <span><?php echo $row1['name'];?></span>
                   <?php 
-                    if($row1['email']==$_SESSION['logged_email']){
+                    if($row1['email']==$_SESSION['logged_email'] || $_SESSION['role']=='admin'){
                   ?>
                   <div class="btn-text-right">
+                    <a href="deletePost.php?email=<?php echo $row1['email'];?>&pid=<?php echo $row['post_id'];?>">
                     <button type="button" class="btn">delete</button>
+                    </a>
                   </div>
                   <?php }?>
                 </div>
@@ -216,10 +218,15 @@
                       $result1=mysqli_query($conn1,$query1);
                      
                       while($row1=mysqli_fetch_assoc($result1)){
+                        $conn2=new mysqli("localhost:3306","root","","coralbarrer");
+                        $query2="select * from USERS where email ='".$row1['user_email']."';";
+                        $result2=mysqli_query($conn2,$query2);
+                        $row2=mysqli_fetch_assoc($result2);
                   ?>
                     <div class="nav-profile d-flex align-items-center">
                       <img
-                        src="assets/img/logo.png"
+
+                        src="<?php echo $row2['profile_pic'];?>"
                         alt="Profile"
                         class="rounded-circle"
                       />

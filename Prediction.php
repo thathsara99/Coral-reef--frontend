@@ -1,3 +1,11 @@
+<?php
+  require 'session.php';
+
+  if($_SESSION['role']!='admin'){
+    header('location:Community.php');
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

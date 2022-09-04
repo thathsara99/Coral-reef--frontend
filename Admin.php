@@ -87,7 +87,7 @@
               <ul>
                 <li><a href="Prediction.php">Prediction</a></li>
                 <li><a href="News.php">News</a></li>
-                <li><a href="#">Coral Reef Community</a></li>
+                <li><a href="Community.php">Coral Reef Community</a></li>
               </ul>
             </li>
           </ul>
