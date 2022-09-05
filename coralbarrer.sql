@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 04, 2022 at 01:02 PM
+-- Generation Time: Sep 05, 2022 at 07:20 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -37,15 +37,15 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `password` text NOT NULL,
   `profile_pic` text DEFAULT NULL,
   PRIMARY KEY (`admin_id`,`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`admin_id`, `name`, `email`, `role`, `password`, `profile_pic`) VALUES
-(3, 'Admin', 'admin@gmail.com', 'admin', 'admin@123', ''),
-(4, 'admin2', 'admin2@gmail.com', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', NULL);
+(5, 'diro', 'diro@gmail.com', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', NULL),
+(4, 'admin2', 'admin2@gmail.com', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'assets/img/Profile_pic/Screenshot (12).png');
 
 -- --------------------------------------------------------
 
@@ -61,8 +61,16 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `msg` text NOT NULL,
   `time` time NOT NULL,
   `date` date NOT NULL,
+  `role` varchar(30) NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`comment_id`, `post_id`, `user_email`, `msg`, `time`, `date`, `role`) VALUES
+(5, 6, 'admin2@gmail.com', 'hlw', '10:21:03', '2022-09-05', '');
 
 -- --------------------------------------------------------
 
@@ -81,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `type` varchar(200) NOT NULL,
   `admin_email` varchar(250) NOT NULL,
   PRIMARY KEY (`news_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -97,8 +105,16 @@ CREATE TABLE IF NOT EXISTS `post` (
   `post_img` varchar(250) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
+  `role` varchar(50) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`post_id`, `user_email`, `post`, `post_img`, `date`, `time`, `role`) VALUES
+(6, 'admin2@gmail.com', 'wedwc dve', 'assets/img/Article/2.PNG', '2022-09-05', '10:18:48', 'admin');
 
 -- --------------------------------------------------------
 
@@ -117,14 +133,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` varchar(50) NOT NULL DEFAULT 'user',
   `profile_pic` text DEFAULT NULL,
   PRIMARY KEY (`user_id`,`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `country`, `contact_no`, `password`, `role`, `profile_pic`) VALUES
-(6, 'Samitha', 'samitha@gmail.com', 'Sri Lanka', '0783748424', '81fa86daf7bd9bbed9fb08de7ebac432', 'user', 'assets/img/Profile_pic/1.PNG');
+(7, 'samitha', 'samitha@gmail.com', 'dbfjasdf', '0783748424', '81fa86daf7bd9bbed9fb08de7ebac432', 'user', NULL),
+(8, 'krishan', 'krishan@gmail.com', '', '', '827ccb0eea8a706c4c34a16891f84e7b', 'user', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
