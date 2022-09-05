@@ -170,14 +170,15 @@
               ?>
               <div class="comment">
                 <div class="nav-profile d-flex align-items-center">
-                  <img
-                    src="assets/img/logo.png"
-                    alt="Profile"
-                    class="rounded-circle"
-                  />
+                  
                   <?php
                     $conn1=new mysqli("localhost:3308","root","","coralbarrer");
-                    $query1="select * from users where email='".$row['user_email']."';";
+                    if($row['role']=='user'){
+                      $query1="select * from users where email='".$row['user_email']."';";
+                    }
+                    else{
+                      $query1="select * from admins where email='".$row['user_email']."';";
+                    }
                     $result1=mysqli_query($conn1,$query1);
                     if($result1){
                       $row1=mysqli_fetch_assoc($result1);
@@ -187,6 +188,11 @@
                     }
                     
                   ?>
+                  <img
+                    src="<?php echo $row1['profile_pic']?>";
+                    alt="Profile"
+                    class="rounded-circle"
+                  />
                   <span><?php echo $row1['name'];?></span>
                   <?php 
                     if($row1['email']==$_SESSION['logged_email'] || $_SESSION['role']=='admin'){
@@ -225,7 +231,12 @@
                      
                       while($row1=mysqli_fetch_assoc($result1)){
                         $conn2=new mysqli("localhost:3308","root","","coralbarrer");
-                        $query2="select * from USERS where email ='".$row1['user_email']."';";
+                        if($row1['role']=='user'){
+                          $query2="select * from USERS where email ='".$row1['user_email']."';";
+                        }
+                        else{
+                          $query2="select * from admins where email ='".$row1['user_email']."';";
+                        }
                         $result2=mysqli_query($conn2,$query2);
                         $row2=mysqli_fetch_assoc($result2);
                   ?>
